@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Band{% endblock %}
+
+{% block body %}
+    <h3>{{ band.name }}</h3>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ band.name }}</td>
+            </tr>
+            <tr>
+                <th>Membres</th>
+                {% for member in members %}
+                    <td>{{ member.sceneName }}</td>
+                {% endfor %}
+            </tr>
+        <tr>
+            <th>Concerts</th>
+            {% for concert in band.concerts %}
+                <td>{{ concert.tourName }}</td>
+            {% endfor %}
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('band_index') }}">Back</a>
+    {% if is_granted("ROLE_ADMIN") %}
+        <button class="btn"><a href="{{ path('band_edit', {'id': band.id}) }}">Edit</a></button>
+        {{ include('band/_delete_form.html.twig') }}
+    {% endif %}
+
+{% endblock %}

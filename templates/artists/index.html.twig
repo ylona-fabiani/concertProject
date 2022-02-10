@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Artists index{% endblock %}
+
+{% block body %}
+    <h3>Artistes</h3>
+    <div class="card-deck">
+        {% for artist in artists %}
+        <div class="card">
+            <img src="{{ asset('img/concertrandom.jpg') }}" style="height: 125px;">
+            <div class="card-body">
+                <h5 class="card-title">{{ artist.sceneName }}</h5>
+                    <a href="{{ path('artists_show', {'id': artist.id}) }}">let's see!</a>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if is_granted("ROLE_ADMIN") %}
+        <a href="{{ path('artists_new') }}">Create new</a>
+    {% endif %}
+{% endblock %}

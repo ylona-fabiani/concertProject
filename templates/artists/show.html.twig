@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Artists{% endblock %}
+
+{% block body %}
+    <h3>{{ artist.sceneName }}</h3>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ artist.sceneName }}</td>
+            </tr>
+            <tr>
+                <th>Groupe(s)</th>
+                {% for band in artist.bands %}
+                <td>{{ band.name }}</td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('artists_index') }}">Back</a>
+
+    {% if is_granted("ROLE_ADMIN") %}
+        <button class="btn"><a href="{{ path('artists_edit', {'id': artist.id}) }}">Edit</a></button>
+        {{ include('artists/_delete_form.html.twig') }}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Concert{% endblock %}
+
+{% block body %}
+    <h3>{{ concert.tourName }}</h3>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Groupe</th>
+                {% for band in concert.bands %}
+                    <td>{{ band.name }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>Tournée</th>
+                <td>{{ concert.tourName }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ concert.date ? concert.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Membres</th>
+                {% for member in members %}
+                <td>{{  }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('concert_index') }}">Back</a>
+    {% if is_granted("ROLE_ADMIN") %}
+        <button class="btn"><a href="{{ path('concert_edit', {'id': concert.id}) }}">edit</a></button>
+        {{ include('concert/_delete_form.html.twig') }}
+    {% endif %}
+{% endblock %}

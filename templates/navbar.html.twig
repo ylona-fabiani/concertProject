@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{ path('home') }}">Shows Land</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('artists_index') }}">Artistes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('band_index') }}">Groupes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('concert_index') }}">Concerts</a>
+            </li>
+        </ul>
+        {% if is_granted("ROLE_USER") %}
+            <span class="navbar-text"><a class="nav-link" href="{{ path('user_edit', {id: app.user.id}) }}"> Bonjour {{ app.user.firstName }} !</a></span>
+            <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+        {% endif %}
+        {% if not is_granted("ROLE_USER") %}
+            <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+            <a class="nav-link" href="{{ path('app_register') }}">Créer un compte</a>
+        {% endif %}
+    </div>
+</nav>

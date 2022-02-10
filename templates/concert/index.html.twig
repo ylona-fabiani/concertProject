@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Concert index{% endblock %}
+
+{% block body %}
+    <h3>Concerts</h3>
+    <div class="card-deck">
+
+        {% for concert in concerts %}
+        <div class="card">
+            <img src="{{ asset('img/concertrandom.jpg') }}" style="height: 125px;">
+            <div class="card-body">
+                <h5 class="card-title">{{ concert.tourName }}</h5>
+                <p class="card-text">{{ concert.date ? concert.date|date('Y-m-d') : '' }}</p>
+                <p class="card-text"><small class="text-muted"><a href="{{ path('concert_show', {'id': concert.id}) }}">let's see!</a></small></p>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    {% if is_granted("ROLE_ADMIN") %}
+        <a href="{{ path('concert_new') }}">Create new</a>
+    {% endif %}
+{% endblock %}
